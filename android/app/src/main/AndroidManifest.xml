@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="renting_bd"
+        android:label="Renting BD"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
