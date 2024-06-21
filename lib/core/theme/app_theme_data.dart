@@ -5,9 +5,10 @@ import 'app_color.dart';
 class AppLightThemeData implements AppThemeData {
   @override
   ThemeData get materialThemeData => ThemeData(
-      brightness: Brightness.light,
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(backgroundColor: AppColor.primaryGreen),
-      appBarTheme: const AppBarTheme(backgroundColor: AppColor.primaryGreen));
+        brightness: Brightness.light,
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(backgroundColor: AppColor.primaryGreen),
+        appBarTheme: const AppBarTheme(backgroundColor: AppColor.primaryGreen),
+      );
 }
 
 class AppDarkThemeData implements AppThemeData {

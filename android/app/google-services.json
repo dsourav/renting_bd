@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "385483096363",
+    "project_id": "renting-bd",
+    "storage_bucket": "renting-bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385483096363:android:dbda2045dc5f3410d8456e",
+        "android_client_info": {
+          "package_name": "com.example.renting_bd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgG1qiAyagefxqJA2vEjxWudb1WMCm2bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
