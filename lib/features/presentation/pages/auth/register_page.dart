@@ -3,8 +3,8 @@ import 'package:renting_bd/core/utils/constant.dart';
 import 'package:renting_bd/core/utils/input_validator.dart';
 import 'package:renting_bd/core/utils/ui_helper.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
+class RegisterPage extends StatelessWidget {
+  RegisterPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
