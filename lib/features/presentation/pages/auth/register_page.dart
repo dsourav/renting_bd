@@ -19,6 +19,7 @@ class RegisterPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

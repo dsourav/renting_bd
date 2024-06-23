@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-import 'package:renting_bd/core/utils/failure.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<User?> registerUser(String email, String password, String role);
   Future<User?> loginUser(String email, String password);
   Future<void> addUserProfile(UserModel userModel);
+  Future<UserModel?> fetchUserProfile();
 }
 
 @Injectable(as: AuthRemoteDataSource)
@@ -51,9 +51,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     // }
   }
 
-  Stream<User?> get user {
-    return firebaseAuth.authStateChanges().map((firebaseUser) {
-      return firebaseUser;
-    });
+  Future<UserModel?> fetchUserProfile() async {
+    final userId = firebaseAuth.currentUser?.uid;
+    if (userId == null) return null;
+
+    final docSnapShot = await firestore.collection('users').doc(userId).get();
+    final docDataMap = docSnapShot.data();
+
+    if (docDataMap == null) return null;
+    return UserModel.fromJson(docDataMap);
   }
 }

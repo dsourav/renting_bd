@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:renting_bd/core/utils/failure.dart';
+import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
 import 'package:renting_bd/features/data/data_sources/auth_remote_data_source.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
 import 'package:renting_bd/features/domain/repositories/auth_repository.dart';
@@ -9,8 +10,9 @@ import 'package:renting_bd/features/domain/repositories/auth_repository.dart';
 @Injectable(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
+  final SharedPrefsHelper sharedPrefsHelper;
 
-  AuthRepositoryImpl(this.authRemoteDataSource);
+  AuthRepositoryImpl(this.authRemoteDataSource, this.sharedPrefsHelper);
 
   @override
   Future<Either<Failure, void>> addUserProfile(UserModel userModel) async {
@@ -41,6 +43,19 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(user);
     } on FirebaseAuthException catch (e) {
       return Left(Failure(message: e.message));
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel?>> fetchUserProfile() async {
+    try {
+      final userModel = await authRemoteDataSource.fetchUserProfile();
+      if (userModel != null) {
+        await sharedPrefsHelper.setUserRole(userModel.role);
+      }
+      return Right(userModel);
     } catch (e) {
       return Left(Failure());
     }

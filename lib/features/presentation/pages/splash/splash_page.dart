@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/features/presentation/blocs/auth/auth_bloc.dart';
-import 'package:renting_bd/features/presentation/pages/auth/login_page.dart';
-import 'package:renting_bd/features/presentation/pages/home/home_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -12,7 +12,10 @@ class SplashPage extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.status == AuthStatus.authenticated) {
-        } else if (state.status == AuthStatus.unauthenticated) {}
+          context.pushReplacementNamed(RoutePath.home);
+        } else if (state.status == AuthStatus.unauthenticated) {
+          context.pushReplacementNamed(RoutePath.login);
+        }
       },
       child: const Scaffold(
         body: Center(

@@ -19,14 +19,19 @@ import '../../features/data/repositories/auth_repository_impl.dart' as _i11;
 import '../../features/domain/repositories/auth_repository.dart' as _i10;
 import '../../features/domain/usecases/auth_usecases/add_user_profile_usecase.dart'
     as _i13;
+import '../../features/domain/usecases/auth_usecases/fetch_user_profile_usecase.dart'
+    as _i15;
 import '../../features/domain/usecases/auth_usecases/login_usecase.dart'
     as _i14;
 import '../../features/domain/usecases/auth_usecases/register_usecase.dart'
     as _i12;
 import '../../features/presentation/blocs/auth/auth_bloc.dart' as _i7;
+import '../../features/presentation/cubits/login/login_cubit.dart' as _i16;
+import '../../features/presentation/cubits/register/register_cubit.dart'
+    as _i17;
 import '../utils/progress_indicator.dart' as _i3;
 import '../utils/shared_prefs_helper.dart' as _i8;
-import 'firebase_module.dart' as _i15;
+import 'firebase_module.dart' as _i18;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> init(
@@ -55,17 +60,24 @@ Future<_i1.GetIt> init(
         gh<_i4.FirebaseAuth>(),
         gh<_i5.FirebaseFirestore>(),
       ));
-  gh.factory<_i10.AuthRepository>(
-      () => _i11.AuthRepositoryImpl(gh<_i9.AuthRemoteDataSource>()));
+  gh.factory<_i10.AuthRepository>(() => _i11.AuthRepositoryImpl(
+        gh<_i9.AuthRemoteDataSource>(),
+        gh<_i8.SharedPrefsHelper>(),
+      ));
   gh.factory<_i12.RegisterUseCase>(
       () => _i12.RegisterUseCase(gh<_i10.AuthRepository>()));
   gh.factory<_i13.AddUserProfileUseCase>(
       () => _i13.AddUserProfileUseCase(gh<_i10.AuthRepository>()));
   gh.factory<_i14.LoginUseCase>(
       () => _i14.LoginUseCase(gh<_i10.AuthRepository>()));
+  gh.factory<_i15.FetchUserProfileUseCase>(
+      () => _i15.FetchUserProfileUseCase(gh<_i10.AuthRepository>()));
+  gh.factory<_i16.LoginCubit>(() => _i16.LoginCubit(gh<_i14.LoginUseCase>()));
+  gh.factory<_i17.RegisterCubit>(
+      () => _i17.RegisterCubit(gh<_i12.RegisterUseCase>()));
   return getIt;
 }
 
-class _$FirebaseModule extends _i15.FirebaseModule {}
+class _$FirebaseModule extends _i18.FirebaseModule {}
 
 class _$SharedPreferencesModule extends _i8.SharedPreferencesModule {}
