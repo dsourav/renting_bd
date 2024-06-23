@@ -50,4 +50,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     //   throw ServerException();
     // }
   }
+
+  Stream<User?> get user {
+    return firebaseAuth.authStateChanges().map((firebaseUser) {
+      return firebaseUser;
+    });
+  }
 }

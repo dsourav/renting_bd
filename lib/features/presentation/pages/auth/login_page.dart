@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
                   const Text('Don\'t have an account?'),
                   TextButton(
                     onPressed: () {
-                      context.pushNamed(RoutePath.signUp);
+                      // context.pushNamed(RoutePath.signUp);
                     },
                     child: const Text('Sign Up with Email'),
                   ),
