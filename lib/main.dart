@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:renting_bd/core/router/app_router.dart';
 import 'package:renting_bd/core/theme/app_theme.dart';
 import 'package:renting_bd/core/theme/app_theme_data.dart';
@@ -38,6 +39,7 @@ class RentingBD extends StatelessWidget {
           theme: _lightTheme.materialThemeData,
           darkTheme: _darkTheme.materialThemeData,
           routerConfig: getIt<AppRouter>().router,
+          builder: EasyLoading.init(),
         ),
       ),
     );

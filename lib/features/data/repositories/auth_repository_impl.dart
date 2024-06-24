@@ -18,6 +18,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, void>> addUserProfile(UserModel userModel) async {
     try {
       await authRemoteDataSource.addUserProfile(userModel);
+      await sharedPrefsHelper.setUserRole(userModel.role);
       return const Right(null);
     } catch (e) {
       return Left(Failure());

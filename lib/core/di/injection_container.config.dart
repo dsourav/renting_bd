@@ -81,8 +81,13 @@ Future<_i1.GetIt> init(
         gh<_i4.AppRouter>(),
         gh<_i3.ProgressIndicator>(),
       ));
-  gh.factory<_i18.RegisterCubit>(
-      () => _i18.RegisterCubit(gh<_i13.RegisterUseCase>()));
+  gh.factory<_i18.RegisterCubit>(() => _i18.RegisterCubit(
+        gh<_i13.RegisterUseCase>(),
+        gh<_i14.AddUserProfileUseCase>(),
+        gh<_i3.ProgressIndicator>(),
+        gh<_i4.AppRouter>(),
+        gh<_i5.FirebaseAuth>(),
+      ));
   return getIt;
 }
 
