@@ -1,6 +1,7 @@
 abstract class Constant {
   // Image Path
-  static const String emailEnvelope = "assets/images/email_envelope.png";
+  static const String emailEnvelopeIcon = "assets/images/email_envelope.png";
+  static const String noResultsIcon = "assets/images/no_results.png";
 
   // Constant text
   static const invalidEmailLabel = "Email is not valid";
@@ -10,6 +11,7 @@ abstract class Constant {
   static const passwordIncorrectLengthLabel = "Password should be at least 8 character";
   static const selectRoleLabel = 'Please select a role.';
   static const isRequiredLabel = "is required";
+  static const noRoleFoundLabel = "No Role Found";
 
   static const landlord = "landlord";
   static const tenant = "tenant";

@@ -14,6 +14,10 @@ class SharedPrefsHelper {
     return _preferences.setString(_roleKey, role);
   }
 
+  Future<bool> removeRole() {
+    return _preferences.remove(_roleKey);
+  }
+
   UserRole? getUserRole() {
     final role = _preferences.getString(_roleKey);
 

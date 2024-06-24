@@ -19,36 +19,19 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<User?> loginUser(String email, String password) async {
-    // try {
     final userCredential = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
     return userCredential.user;
-    // } on FirebaseAuthException catch (e) {
-    //   throw ServerException(message: e.message);
-    // } catch (e) {
-    //   throw ServerException();
-    // }
   }
 
   @override
   Future<User?> registerUser(String email, String password, String role) async {
-    // try {
     final userCredential = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-
     return userCredential.user;
-    // } on FirebaseAuthException catch (e) {
-    //   throw ServerException(message: e.message);
-    // } catch (e) {
-    //   throw ServerException();
-    // }
   }
 
   @override
   Future<void> addUserProfile(UserModel userModel) async {
-    // try {
     return firestore.collection('users').doc(userModel.uuid).set(userModel.toJson());
-    // } catch (e) {
-    //   throw ServerException();
-    // }
   }
 
   @override
