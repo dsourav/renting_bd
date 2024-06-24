@@ -56,7 +56,7 @@ class RegisterPage extends StatelessWidget {
                     onChanged: (value) {},
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please select a role.';
+                        return Constant.selectRoleLabel;
                       }
                       return null;
                     },

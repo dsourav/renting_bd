@@ -51,6 +51,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     // }
   }
 
+  @override
   Future<UserModel?> fetchUserProfile() async {
     final userId = firebaseAuth.currentUser?.uid;
     if (userId == null) return null;

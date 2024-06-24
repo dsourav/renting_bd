@@ -37,7 +37,7 @@ class RentingBD extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: _lightTheme.materialThemeData,
           darkTheme: _darkTheme.materialThemeData,
-          routerConfig: AppRouter.router,
+          routerConfig: getIt<AppRouter>().router,
         ),
       ),
     );
