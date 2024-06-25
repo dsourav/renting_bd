@@ -6,8 +6,9 @@ import 'package:renting_bd/core/router/app_router.dart';
 import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/constant.dart';
 import 'package:renting_bd/core/utils/progress_indicator.dart';
+import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
-import 'package:renting_bd/features/domain/usecases/auth_usecases/add_user_profile_usecase.dart';
+import 'package:renting_bd/features/domain/usecases/profile_usecase/add_user_profile_usecase.dart';
 import 'package:renting_bd/features/domain/usecases/auth_usecases/register_usecase.dart';
 
 part 'register_state.dart';
@@ -19,8 +20,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   final ProgressIndicator progressIndicator;
   final AppRouter appRouter;
   final FirebaseAuth firebaseAuth;
-  RegisterCubit(
-      this.registerUseCase, this.addUserProfileUseCase, this.progressIndicator, this.appRouter, this.firebaseAuth)
+  final SharedPrefsHelper sharedPrefsHelper;
+
+  RegisterCubit(this.registerUseCase, this.addUserProfileUseCase, this.progressIndicator, this.appRouter,
+      this.firebaseAuth, this.sharedPrefsHelper)
       : super(const RegisterState._());
 
   registerNewUser(RegisterParams params) async {
@@ -39,7 +42,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       profileResponse.fold((failure) {
         progressIndicator.showError(error: failure.message);
         firebaseAuth.currentUser?.delete();
-      }, (_) {
+      }, (_) async {
+        await sharedPrefsHelper.setUserRole(params.role);
         progressIndicator.dismiss();
         appRouter.router.goNamed(RoutePath.home);
       });

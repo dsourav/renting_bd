@@ -5,8 +5,9 @@ import 'package:injectable/injectable.dart';
 import 'package:renting_bd/core/router/app_router.dart';
 import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/progress_indicator.dart';
+import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
 import 'package:renting_bd/core/utils/usecase.dart';
-import 'package:renting_bd/features/domain/usecases/auth_usecases/fetch_user_profile_usecase.dart';
+import 'package:renting_bd/features/domain/usecases/profile_usecase/fetch_user_profile_usecase.dart';
 import 'package:renting_bd/features/domain/usecases/auth_usecases/login_usecase.dart';
 
 part 'login_state.dart';
@@ -18,7 +19,9 @@ class LoginCubit extends Cubit<LoginState> {
   final ProgressIndicator progressIndicator;
   final AppRouter appRouter;
   final FirebaseAuth firebaseAuth;
-  LoginCubit(this.loginUseCase, this.fetchUserProfileUseCase, this.firebaseAuth, this.appRouter, this.progressIndicator)
+  final SharedPrefsHelper sharedPrefsHelper;
+  LoginCubit(this.loginUseCase, this.fetchUserProfileUseCase, this.firebaseAuth, this.sharedPrefsHelper, this.appRouter,
+      this.progressIndicator)
       : super(LoginInitial());
 
   Future<void> logInWithCredentials(LoginParams params) async {
@@ -26,10 +29,11 @@ class LoginCubit extends Cubit<LoginState> {
     final authResponse = await loginUseCase.call(params);
 
     authResponse.fold((failure) => progressIndicator.showError(error: failure.message), (user) async {
-      final profileResponse = await fetchUserProfileUseCase.call(NoParams());
+      final profileResponse = await fetchUserProfileUseCase.call(FetUserProfileParams(userId: user?.uid));
 
-      profileResponse.fold((failure) => progressIndicator.showError(error: failure.message), (profile) {
+      profileResponse.fold((failure) => progressIndicator.showError(error: failure.message), (profile) async {
         if (profile != null) {
+          await sharedPrefsHelper.setUserRole(profile.role);
           progressIndicator.dismiss();
           appRouter.router.goNamed(RoutePath.home);
         } else {

@@ -7,7 +7,8 @@ abstract class AuthRemoteDataSource {
   Future<User?> registerUser(String email, String password, String role);
   Future<User?> loginUser(String email, String password);
   Future<void> addUserProfile(UserModel userModel);
-  Future<UserModel?> fetchUserProfile();
+  Future<UserModel?> fetchUserProfile(String? userId);
+  Future<void> updateUserProfile(UserModel userModel);
 }
 
 @Injectable(as: AuthRemoteDataSource)
@@ -35,14 +36,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel?> fetchUserProfile() async {
-    final userId = firebaseAuth.currentUser?.uid;
+  Future<UserModel?> fetchUserProfile(String? userId) async {
     if (userId == null) return null;
-
     final docSnapShot = await firestore.collection('users').doc(userId).get();
     final docDataMap = docSnapShot.data();
 
     if (docDataMap == null) return null;
     return UserModel.fromJson(docDataMap);
+  }
+
+  @override
+  Future<void> updateUserProfile(UserModel userModel) {
+    return firestore.collection('users').doc(userModel.uuid).update(userModel.toJson());
   }
 }

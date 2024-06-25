@@ -50,15 +50,23 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserModel?>> fetchUserProfile() async {
+  Future<Either<Failure, UserModel?>> fetchUserProfile(String? userId) async {
     try {
-      final userModel = await authRemoteDataSource.fetchUserProfile();
-      if (userModel != null) {
-        await sharedPrefsHelper.setUserRole(userModel.role);
-      }
+      final userModel = await authRemoteDataSource.fetchUserProfile(userId);
+
       return Right(userModel);
     } catch (e) {
       return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateUserProfile(UserModel userModel) async {
+    try {
+      await authRemoteDataSource.updateUserProfile(userModel);
+      return const Right(null);
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
     }
   }
 }

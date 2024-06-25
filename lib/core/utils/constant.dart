@@ -2,6 +2,7 @@ abstract class Constant {
   // Image Path
   static const String emailEnvelopeIcon = "assets/images/email_envelope.png";
   static const String noResultsIcon = "assets/images/no_results.png";
+  static const String noImageIcon = "assets/images/not_found.png";
 
   // Constant text
   static const invalidEmailLabel = "Email is not valid";

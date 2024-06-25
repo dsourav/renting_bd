@@ -10,8 +10,10 @@ class UserModel extends Equatable {
   final String? email;
   final String? phoneNumber;
   final String? name;
+  final String? profilePicture;
 
-  const UserModel({required this.uuid, required this.role, this.email, this.phoneNumber, this.name});
+  const UserModel(
+      {required this.uuid, required this.role, this.email, this.phoneNumber, this.name, this.profilePicture});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 

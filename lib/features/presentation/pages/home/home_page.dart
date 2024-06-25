@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:renting_bd/core/di/injection_container.dart';
+import 'package:renting_bd/core/router/app_router.dart';
+import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/enums.dart';
 import 'package:renting_bd/core/utils/extensions.dart';
 import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
@@ -26,11 +28,14 @@ class HomePage extends StatelessWidget {
               child: ListView(
                 children: [
                   UserAccountsDrawerHeader(
-                    accountEmail: Text(user?.email ?? "N/A"),
+                    accountEmail: Text(user.email ?? "N/A"),
                     accountName: const SizedBox(),
                   ),
-                  const ListTile(
-                    title: Text("My Profile"),
+                  ListTile(
+                    title: const Text("My Profile"),
+                    onTap: () {
+                      getIt<AppRouter>().router.pushNamed(RoutePath.profile, extra: user.uid);
+                    },
                   ),
                   ListTile(
                     title: const Text("Logout"),

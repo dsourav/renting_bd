@@ -6,13 +6,13 @@ import 'package:renting_bd/features/data/models/user_model.dart';
 import 'package:renting_bd/features/domain/repositories/auth_repository.dart';
 
 @Injectable()
-class FetchUserProfileUseCase implements UseCase<UserModel?, NoParams> {
+class UpdateUserProfileUseCase implements UseCase<void, UserModel> {
   final AuthRepository authRepository;
 
-  FetchUserProfileUseCase(this.authRepository);
+  UpdateUserProfileUseCase(this.authRepository);
 
   @override
-  Future<Either<Failure, UserModel?>> call(NoParams params) {
-    return authRepository.fetchUserProfile();
+  Future<Either<Failure, void>> call(UserModel userModel) {
+    return authRepository.updateUserProfile(userModel);
   }
 }
