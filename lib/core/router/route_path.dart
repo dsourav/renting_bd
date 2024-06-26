@@ -5,4 +5,5 @@ abstract class RoutePath {
   static const String login = "/login";
   static const String profile = "/profile";
   static const String updateProfile = "/update-profile";
+  static const String addProperty = "/add-property";
 }

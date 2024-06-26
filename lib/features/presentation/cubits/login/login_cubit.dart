@@ -7,7 +7,7 @@ import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/progress_indicator.dart';
 import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
 import 'package:renting_bd/core/utils/usecase.dart';
-import 'package:renting_bd/features/domain/usecases/profile_usecase/fetch_user_profile_usecase.dart';
+import 'package:renting_bd/features/domain/usecases/profile_usecases/fetch_user_profile_usecase.dart';
 import 'package:renting_bd/features/domain/usecases/auth_usecases/login_usecase.dart';
 
 part 'login_state.dart';

@@ -9,7 +9,7 @@ import 'package:renting_bd/core/services/image_picker_service.dart';
 import 'package:renting_bd/core/utils/constant.dart';
 import 'package:renting_bd/core/utils/progress_indicator.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
-import 'package:renting_bd/features/domain/usecases/profile_usecase/update_user_profile_usecase.dart';
+import 'package:renting_bd/features/domain/usecases/profile_usecases/update_user_profile_usecase.dart';
 
 part 'update_profile_state.dart';
 

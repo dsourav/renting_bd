@@ -1,16 +1,11 @@
-# renting_bd
+# Renting BD
 
-A new Flutter project.
+A property renting app
 
-## Getting Started
+## Requirements
 
-This project is a starting point for a Flutter application.
+- Flutter 3.16.0
 
-A few resources to get you started if this is your first Flutter project:
+If you face any error regarding generated files, run the following command:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- `dart run build_runner build`

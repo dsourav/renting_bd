@@ -8,7 +8,7 @@ import 'package:renting_bd/core/utils/constant.dart';
 import 'package:renting_bd/core/utils/progress_indicator.dart';
 import 'package:renting_bd/core/utils/shared_prefs_helper.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
-import 'package:renting_bd/features/domain/usecases/profile_usecase/add_user_profile_usecase.dart';
+import 'package:renting_bd/features/domain/usecases/profile_usecases/add_user_profile_usecase.dart';
 import 'package:renting_bd/features/domain/usecases/auth_usecases/register_usecase.dart';
 
 part 'register_state.dart';

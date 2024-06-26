@@ -48,6 +48,13 @@ class HomePage extends StatelessWidget {
             )
           : const SizedBox(),
       body: const _HomeBody(),
+      floatingActionButton: userRole == UserRole.landlord
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                context.pushNamed(RoutePath.addProperty);
+              })
+          : null,
     );
   }
 }

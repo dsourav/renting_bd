@@ -8,6 +8,7 @@ import 'package:renting_bd/features/presentation/pages/auth/register_page.dart';
 import 'package:renting_bd/features/presentation/pages/home/home_page.dart';
 import 'package:renting_bd/features/presentation/pages/profile/profile_page.dart';
 import 'package:renting_bd/features/presentation/pages/profile/update_profile_page.dart';
+import 'package:renting_bd/features/presentation/pages/property_listing/add_new_properties_page.dart';
 import 'package:renting_bd/features/presentation/pages/splash/splash_page.dart';
 
 @singleton
@@ -47,6 +48,11 @@ class AppRouter {
           value: state.extra as ProfileCubit,
           child: const UpdateProfilePage(),
         ),
+      ),
+      GoRoute(
+        path: RoutePath.addProperty,
+        name: RoutePath.addProperty,
+        builder: (context, state) => AddNewPropertyPage(),
       ),
     ],
   );
