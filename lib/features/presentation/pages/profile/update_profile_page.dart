@@ -31,48 +31,55 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<UpdateProfileCubit>(),
+    return BlocProvider(
+      create: (context) => getIt<UpdateProfileCubit>(),
       child: Builder(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text("Edit Profile"),
-          ),
-          body: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Container(
-                padding: EdgeInsets.all(UiHelper.defaultMargin),
-                child: ListView(
-                  children: [
-                    const _ProfileImage(),
-                    TextFormField(
-                      controller: _name,
-                      decoration: const InputDecoration(
-                        labelText: 'User Name',
+        builder: (context) => BlocListener<UpdateProfileCubit, UpdateProfileState>(
+          listener: (context, state) {
+            if (state.userModel != null) {
+              context.read<ProfileCubit>().updateUserProfile(state.userModel!);
+            }
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text("Edit Profile"),
+            ),
+            body: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Container(
+                  padding: EdgeInsets.all(UiHelper.defaultMargin),
+                  child: ListView(
+                    children: [
+                      const _ProfileImage(),
+                      TextFormField(
+                        controller: _name,
+                        decoration: const InputDecoration(
+                          labelText: 'User Name',
+                        ),
+                        validator: InputValidator.validateUserName,
                       ),
-                      validator: InputValidator.validateUserName,
-                    ),
-                    TextFormField(
-                      controller: _phone,
-                      decoration: const InputDecoration(
-                        labelText: 'Phone Number',
+                      TextFormField(
+                        controller: _phone,
+                        decoration: const InputDecoration(
+                          labelText: 'Phone Number',
+                        ),
+                        validator: InputValidator.validatePhoneNumber,
                       ),
-                      validator: InputValidator.validatePhoneNumber,
-                    ),
-                    const SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        final userProfile = context.read<ProfileCubit>().state.userModel;
-                        if (_formKey.currentState?.validate() == true && userProfile != null) {
-                          final updatedProfile = userProfile.copyWith(name: _name.text, phoneNumber: _phone.text);
-                          context.read<UpdateProfileCubit>().updateProfile(updatedProfile);
-                        }
-                      },
-                      child: const Text('Update'),
-                    ),
-                  ],
-                )),
+                      const SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () {
+                          final userProfile = context.read<ProfileCubit>().state.userModel;
+                          if (_formKey.currentState?.validate() == true && userProfile != null) {
+                            final updatedProfile = userProfile.copyWith(name: _name.text, phoneNumber: _phone.text);
+                            context.read<UpdateProfileCubit>().updateProfile(updatedProfile);
+                          }
+                        },
+                        child: const Text('Update'),
+                      ),
+                    ],
+                  )),
+            ),
           ),
         ),
       ),
@@ -86,7 +93,9 @@ class _ProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userProfile = context.read<ProfileCubit>().state.userModel;
-    final pickedImage = context.select((UpdateProfileCubit updateProfile) => updateProfile.state.pickedFile);
+    final updateProfileState = context.select((UpdateProfileCubit updateProfile) => updateProfile.state);
+    final pickedImage = updateProfileState.pickedFile;
+    final profilePicture = updateProfileState.userModel?.profilePicture ?? userProfile?.profilePicture;
 
     return Center(
       child: Stack(
@@ -95,7 +104,7 @@ class _ProfileImage extends StatelessWidget {
           if (pickedImage?.path != null) ...[
             AppLocalImage(imageUrl: pickedImage!.path, imageShape: ImageShape.circular, radius: 60),
           ] else ...[
-            AppNetworkImage(imageUrl: userProfile!.profilePicture, size: const Size(120, 120)),
+            AppNetworkImage(imageUrl: profilePicture, size: const Size(120, 120)),
           ],
           IconButton(
               onPressed: () {

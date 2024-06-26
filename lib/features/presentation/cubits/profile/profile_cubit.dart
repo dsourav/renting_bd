@@ -24,4 +24,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       }
     });
   }
+
+  updateUserProfile(UserModel userModel) {
+    emit(ProfileState.profileLoaded(userModel));
+  }
 }

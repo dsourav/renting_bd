@@ -19,6 +19,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
   final UpdateUserProfileUseCase updateUserProfileUseCase;
   final ProgressIndicator progressIndicator;
   final CloudStorageService cloudStorageService;
+
   UpdateProfileCubit(
       this.imagePickerService, this.updateUserProfileUseCase, this.cloudStorageService, this.progressIndicator)
       : super(const UpdateProfileState.initial());
@@ -40,7 +41,9 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
 
     final updatedProfile = userModel.copyWith(profilePicture: imageUrl);
     final profileResponse = await updateUserProfileUseCase.call(updatedProfile);
-    profileResponse.fold(
-        (failure) => progressIndicator.showError(error: failure.message), (_) => progressIndicator.showSuccess());
+    profileResponse.fold((failure) => progressIndicator.showError(error: failure.message), (_) {
+      progressIndicator.showSuccess();
+      emit(UpdateProfileState.profileUpdated(updatedProfile));
+    });
   }
 }

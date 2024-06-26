@@ -19,8 +19,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: getIt<ProfileCubit>(),
+    return BlocProvider(
+      create: (context) => getIt<ProfileCubit>(),
       child: _ProfileBody(userId: userId),
     );
   }
@@ -55,7 +55,8 @@ class _ProfileBodyState extends State<_ProfileBody> {
                 if (user != null && user.uuid == currentUser?.uid) {
                   return IconButton(
                       onPressed: () {
-                        context.pushNamed(RoutePath.updateProfile, extra: context.read<ProfileCubit>());
+                        final profile = context.read<ProfileCubit>();
+                        context.pushNamed(RoutePath.updateProfile, extra: profile);
                       },
                       icon: const Icon(Icons.edit));
                 }
@@ -90,7 +91,7 @@ class _ProfileView extends StatelessWidget {
       padding: EdgeInsets.all(UiHelper.defaultMargin),
       child: ListView(
         children: [
-          AppNetworkImage(size: const Size(120, 120), imageUrl: (userModel?.profilePicture)),
+          AppNetworkImage(size: const Size(120, 120), imageUrl: userModel?.profilePicture),
           const SizedBox(height: 10.0),
           ProfileInfo(title: "Name", content: userModel?.name),
           ProfileInfo(title: "Email", content: userModel?.email),

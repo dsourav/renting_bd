@@ -45,7 +45,7 @@ class AppRouter {
         name: RoutePath.updateProfile,
         builder: (context, state) => BlocProvider.value(
           value: state.extra as ProfileCubit,
-          child: UpdateProfilePage(),
+          child: const UpdateProfilePage(),
         ),
       ),
     ],

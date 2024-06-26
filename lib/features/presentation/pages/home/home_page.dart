@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:renting_bd/core/di/injection_container.dart';
-import 'package:renting_bd/core/router/app_router.dart';
 import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/enums.dart';
 import 'package:renting_bd/core/utils/extensions.dart';
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                   ListTile(
                     title: const Text("My Profile"),
                     onTap: () {
-                      getIt<AppRouter>().router.pushNamed(RoutePath.profile, extra: user.uid);
+                      context.pushNamed(RoutePath.profile, extra: user.uid);
                     },
                   ),
                   ListTile(
