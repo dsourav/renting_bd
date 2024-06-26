@@ -4,7 +4,7 @@ A property renting app
 
 ## Requirements
 
-- Flutter 3.16.0
+- Flutter 3.19.0
 
 If you face any error regarding generated files, run the following command:
 
