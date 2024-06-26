@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:renting_bd/core/di/injection_container.dart';
-import 'package:renting_bd/core/router/app_router.dart';
 import 'package:renting_bd/core/router/route_path.dart';
 import 'package:renting_bd/core/utils/ui_helper.dart';
 import 'package:renting_bd/features/data/models/user_model.dart';
@@ -91,8 +90,7 @@ class _ProfileView extends StatelessWidget {
       padding: EdgeInsets.all(UiHelper.defaultMargin),
       child: ListView(
         children: [
-          if (userModel?.profilePicture != null)
-            AppNetworkImage(size: const Size(120, 120), imageUrl: (userModel!.profilePicture!)),
+          AppNetworkImage(size: const Size(120, 120), imageUrl: (userModel?.profilePicture)),
           const SizedBox(height: 10.0),
           ProfileInfo(title: "Name", content: userModel?.name),
           ProfileInfo(title: "Email", content: userModel?.email),

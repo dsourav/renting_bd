@@ -31,15 +31,17 @@ import '../../features/domain/usecases/profile_usecase/update_user_profile_useca
     as _i20;
 import '../../features/presentation/blocs/auth/auth_bloc.dart' as _i23;
 import '../../features/presentation/cubits/login/login_cubit.dart' as _i22;
-import '../../features/presentation/cubits/profile/profile_cubit.dart' as _i24;
+import '../../features/presentation/cubits/profile/profile_cubit.dart' as _i25;
 import '../../features/presentation/cubits/register/register_cubit.dart'
     as _i21;
+import '../../features/presentation/cubits/update_profile/update_profile_cubit.dart'
+    as _i24;
 import '../router/app_router.dart' as _i4;
 import '../services/cloud_storage_service.dart' as _i11;
 import '../services/image_picker_service.dart' as _i10;
 import '../utils/progress_indicator.dart' as _i3;
 import '../utils/shared_prefs_helper.dart' as _i12;
-import 'firebase_module.dart' as _i25;
+import 'firebase_module.dart' as _i26;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> init(
@@ -112,14 +114,20 @@ Future<_i1.GetIt> init(
         gh<_i12.SharedPrefsHelper>(),
         gh<_i4.AppRouter>(),
       ));
-  gh.factory<_i24.ProfileCubit>(() => _i24.ProfileCubit(
+  gh.factory<_i24.UpdateProfileCubit>(() => _i24.UpdateProfileCubit(
+        gh<_i10.ImagePickerService>(),
+        gh<_i20.UpdateUserProfileUseCase>(),
+        gh<_i11.CloudStorageService>(),
+        gh<_i3.ProgressIndicator>(),
+      ));
+  gh.factory<_i25.ProfileCubit>(() => _i25.ProfileCubit(
         gh<_i20.UpdateUserProfileUseCase>(),
         gh<_i19.FetchUserProfileUseCase>(),
       ));
   return getIt;
 }
 
-class _$FirebaseModule extends _i25.FirebaseModule {}
+class _$FirebaseModule extends _i26.FirebaseModule {}
 
 class _$SharedPreferencesModule extends _i12.SharedPreferencesModule {}
 

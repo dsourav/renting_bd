@@ -17,4 +17,6 @@ abstract class Constant {
   static const landlord = "landlord";
   static const tenant = "tenant";
   static const userRoles = [landlord, tenant];
+
+  static String profileImageDirPath(String uuid) => "profile-image/$uuid";
 }

@@ -1,20 +1,22 @@
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:renting_bd/core/utils/failure.dart';
 
 @Injectable()
 class ImagePickerService {
   final ImagePicker imagePicker;
 
   ImagePickerService(this.imagePicker);
-  Future<XFile?> pickImage() async {
+  Future<Either<Failure, XFile?>> pickImage() async {
     try {
       final XFile? pickedFile = await imagePicker.pickImage(
         source: ImageSource.gallery,
       );
 
-      return pickedFile;
+      return Right(pickedFile);
     } catch (e) {
-      throw Exception(e.toString());
+      return Left(Failure(message: e.toString()));
     }
   }
 }

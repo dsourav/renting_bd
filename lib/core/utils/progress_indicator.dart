@@ -6,4 +6,5 @@ class ProgressIndicator {
   Future<void> show({String? status}) => EasyLoading.show(status: status ?? "Please Wait");
   Future<void> showError({String? error}) => EasyLoading.showError(error ?? "Unknown error occurred");
   Future<void> dismiss() => EasyLoading.dismiss();
+  Future<void> showSuccess({String? status}) => EasyLoading.showSuccess(status ?? "Success");
 }

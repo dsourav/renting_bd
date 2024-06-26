@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:renting_bd/core/utils/constant.dart';
 
 class AppNetworkImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final ImageShape imageShape;
   final Size? size;
   final BoxFit? fit;
@@ -18,9 +18,9 @@ class AppNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl.isNotEmpty
+    return imageUrl?.isNotEmpty == true
         ? CachedNetworkImage(
-            imageUrl: imageUrl,
+            imageUrl: imageUrl!,
             imageBuilder: (context, imageProvider) => Container(
               width: size?.width ?? 80.0,
               height: size?.height ?? 80.0,
@@ -60,9 +60,7 @@ class ErrorImage extends StatelessWidget {
       width: size?.width ?? 80.0,
       height: size?.height ?? 80.0,
       decoration: BoxDecoration(
-        shape: imageShape == ImageShape.circular ? BoxShape.circle : BoxShape.rectangle,
-        image: const DecorationImage(image: AssetImage(Constant.noImageIcon), fit: BoxFit.fill),
-      ),
+          shape: imageShape == ImageShape.circular ? BoxShape.circle : BoxShape.rectangle, color: Colors.grey.shade300),
     );
   }
 }
